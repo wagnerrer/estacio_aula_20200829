@@ -1,0 +1,3 @@
+[console_scripts]
+signalsfx = signalsfx.__main__:main
+

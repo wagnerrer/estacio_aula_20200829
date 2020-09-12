@@ -1,0 +1,11 @@
+README.md
+setup.py
+signalsfx/__init__.py
+signalsfx/__main__.py
+signalsfx/signals.py
+signalsfx/util.py
+signalsfx.egg-info/PKG-INFO
+signalsfx.egg-info/SOURCES.txt
+signalsfx.egg-info/dependency_links.txt
+signalsfx.egg-info/entry_points.txt
+signalsfx.egg-info/top_level.txt
