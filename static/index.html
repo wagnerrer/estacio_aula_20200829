@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MUI Landing Page with Extras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.muicss.com/mui-0.10.3/extra/mui-colors.min.css">
+    <script src="https://cdn.muicss.com/mui-0.10.3/extra/mui-combined.min.js"></script>
+  </head>
+  <body>
+    <div class="mui-container">
+        <table>
+          <tr class="mui--appbar-height">
+            <td class="mui--text-title">SignalsFX</td>
+          </tr>
+        </table>
+        <div class="mui-divider"></div>
+        <div class="mui-panel">
+        <form name="form" class="mui-form" onsubmit="search_active(event)">
+            <legend>Moeda</legend>
+            <div class="mui-select">
+              <select name="active">
+                <option>EURUSD</option>
+                <option>USDJPY</option>
+                <option>EURGBP</option>
+              </select>
+              <label>Selecione a moeda</label>
+            </div>
+
+            <legend>Timeframe</legend>
+            <div class="mui-select">
+              <select name="timeframe">
+                <option>1</option>
+                <option>5</option>
+                <option>15</option>
+              </select>
+              <label>Selecione a moeda</label>
+            </div>
+            <button type="submit" class="mui-btn mui-btn--primary" >Buscar</button>
+            </form>
+        </div>
+        <div id="resultado" class="mui-panel" style="display: none;">[</div>
+      </div>
+      <script>
+
+       const get_pywebview =() => {
+           try{
+               return pywebview
+           }catch(e){
+               pywebview = {
+                   api: {
+                        search_active() {
+                            return Promise.resolve({
+                                "_active":"EUR/USD"
+                            })
+                        }
+                   }
+               }
+               return pywebview
+           }
+       }
+
+       const prepare_result = (signal) => {
+            const template = '<div><span style="color: red">{}</span>:  <span class="mui--divider-left"> {}</span></div>';
+            const resultado = document.querySelector("#resultado");
+            resultado.innerHTML = "";
+            /**
+            * Object.keys() -> retorna as chave do teu dicionario: ['price', 'active']
+            * price, active 
+            * 
+            */
+            Object.keys(signal).forEach(key => {
+                resultado.innerHTML += template.replace("{}", key).replace("{}", signal[key]);
+            })
+            resultado.style.display="block";
+       }
+       
+       const search_active = async(evt) => {
+            evt.preventDefault(); // nao va para lugar algum, fique aqui!
+            const active = evt.target.active.value;
+            const timeframe = evt.target.timeframe.value;
+            const signal = await get_pywebview().api.search_active(active, timeframe)
+            prepare_result(signal);
+       }
+        
+      </script>
+  </body>
+</html>

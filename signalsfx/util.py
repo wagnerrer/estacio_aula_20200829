@@ -1,4 +1,4 @@
-from .signals import Signal
+from signals import Signal
 import requests
 
 def get_data(timeframe):
@@ -51,5 +51,5 @@ def scrap(timeframe, active):
     """
 
     # filtragem
-    signal = [s for s in signals if s.active == active]
+    signal = [s for s in signals if s.active.replace("/","") == active.replace("/","")]
     return signal.pop()
