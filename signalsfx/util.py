@@ -1,4 +1,4 @@
-from signals import Signal
+from signalsfx.signals import Signal
 import requests
 
 def get_data(timeframe):

@@ -1,2 +1,2 @@
-from util import scrap
-from signals import Signal
+from signalsfx.util import scrap
+from signalsfx.signals import Signal
